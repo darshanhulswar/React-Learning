@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statefull Component</title>
+
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <script src="node_modules/babel.min.js"></script>
+    <script src="node_modules/react.development.js"></script>
+    <script src="node_modules/react-dom.development.js"></script>
+</head>
+
+<body>
+
+    <div class="container py-5" id="root"></div>
+
+    <script type="text/babel">
+        class BlogCardComponent extends React.Component {
+            render() {
+                return (
+                    <div className="card" style={{ width: 18 + "rem" }}>
+                        <div className="card-body">
+                            <h5 className="card-title">Rio Jeneiro</h5>
+                            <h6 className="card-subttitle text-muted">Christ Place</h6>
+                            <p className="card-text">Rio de Janeiro is a huge seaside city in Brazil, famed for its Copacabana and Ipanema beaches</p>
+
+                            <a className="btn btn-primary" href="#">Visit</a>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        const rootElement = document.getElementById('root');
+        ReactDOM.render(<BlogCardComponent />, rootElement);
+    </script>
+</body>
+
+</html>
