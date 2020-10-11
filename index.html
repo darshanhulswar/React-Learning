@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React</title>
 
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 
@@ -19,16 +23,40 @@
 
     <script type="text/babel">
 
-        const MyComponent = () => {
-            return (
-                <div>
-                    <h1>Hello</h1>
-                    <p>Here is the first react component</p>
-                </div>
-            )
+        class MyComponent extends React.Component {
+
+            constructor(props) {
+                super(props);
+                this.state = {
+                    text: "This is some text"
+                }
+            }
+
+            edit = () => {
+                alert("Editing...");
+                this.state.text = 'Some other state';
+            }
+            delete = () => alert("Deleting...");
+
+            render() {
+                return (
+                    <div className="card shadow p-4 m-4 w-25">
+                        <div className="card-text">{this.props.text}</div>
+                        <button onClick={this.edit} className="btn btn-sm btn-primary mx-2">Edit</button>
+                        <button onClick={this.delete} className="btn btn-sm btn-danger m-2 rounded">Delete</button>
+                    </div>
+                );
+            }
         }
 
-        ReactDOM.render(<MyComponent />, document.getElementById('react-container'));
+        const components = (
+            <div>
+                <MyComponent text="Hello This is a prop one" />
+
+            </div>
+        );
+
+        ReactDOM.render(components, document.getElementById('react-container'));
     </script>
 
 </body>
