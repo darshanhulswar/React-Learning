@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statefull Component</title>
+    <title>BlogCardComponent Component</title>
 
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -20,13 +20,27 @@
 
     <script type="text/babel">
         class BlogCardComponent extends React.Component {
+
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    checked: this.state,
+                    msg: "Hello World";
+                }
+
+                onclick(props) {
+                    this.state.msg = "Hello Hello World";
+                }
+            }
+
             render() {
                 return (
-                    <div className="card" style={{ width: 18 + "rem" }}>
+                    <div className="card shadow" style={{ width: 18 + "rem" }}>
                         <div className="card-body">
                             <h5 className="card-title">Rio Jeneiro</h5>
-                            <h6 className="card-subttitle text-muted">Christ Place</h6>
-                            <p className="card-text">Rio de Janeiro is a huge seaside city in Brazil, famed for its Copacabana and Ipanema beaches</p>
+                            <h6 className="card-subttitle text-muted mb-2">Christ Place</h6>
+                            <p className="card-text text-dark">Rio de Janeiro is a huge seaside city in Brazil, famed for its Copacabana and Ipanema beaches.</p>
 
                             <a className="btn btn-primary" href="#">Visit</a>
                         </div>
@@ -36,6 +50,7 @@
         }
 
         const rootElement = document.getElementById('root');
+
         ReactDOM.render(<BlogCardComponent />, rootElement);
     </script>
 </body>
