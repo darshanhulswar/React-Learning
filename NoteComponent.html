@@ -25,6 +25,15 @@
     body {
         background-color: #3d486c;
     }
+
+    .board {
+        background-color: #3d486c;
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+    }
 </style>
 
 <body>
@@ -33,7 +42,7 @@
 
 
     <script type="text/babel">
-        class RadioButtonComponent extends React.Component {
+        class Note extends React.Component {
 
             constructor(props) {
                 super(props);
@@ -105,7 +114,19 @@
         }
 
         const rootElement = document.getElementById('root');
-        ReactDOM.render(<RadioButtonComponent />, rootElement);
+        ReactDOM.render(<Note />, rootElement);
+
+        class Board extends React.Component {
+            render() {
+                return (
+                    <div className="board">
+                        {this.props.count}
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Board count={10} />, document.getElementById('root'))
     </script>
 
     <!-- <script type="text/javascript">
