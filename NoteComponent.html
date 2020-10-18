@@ -49,9 +49,12 @@
             }
 
             save = () => {
-                let val = this.refs.newText.value;
-                alert(val);
-                this.setState({ editing: false })
+                this.props.onChange(this.refs.newText.value, this.props.id);
+                this.setState({editing: false})
+            }
+
+            delete = () => {
+                this.props.onRemove(this.props.id)
             }
 
             renderForm = () => {
@@ -72,7 +75,7 @@
                         <div className="card-body">
                             <h1 style={{ color: "#DFDFEF" }}>{this.props.children}</h1>
                             <button data-toggle="tooltip" data-placement="left" title="Edit Note" onClick={this.edit} className="btn btn-sm btn-primary mx-2 rounded-circle" title="Edit Note"><i className="fa fa-edit"></i></button>
-                            <button data-toggle="tooltip" data-placement="right" title="Save Note" onClick={this.delete} className="btn btn-sm btn-success mx-2 rounded-circle" title="Delete Note"><i className="fa fa-save"></i></button>
+                            <button data-toggle="tooltip" data-placement="right" title="Delete Note" onClick={this.delete} className="btn btn-sm btn-success mx-2 rounded-circle" title="Delete Note"><i className="fa fa-trash"></i></button>
                         </div>
                     </div>
                 );
@@ -95,27 +98,47 @@
                 super(props);
                 this.state = {
                     notes: [
-                        'Send Email to Rahul',
-                        'Submit Project',
-                        'Make prototype',
-                        'Attend the meeting'
+                        { id: 1, note: 'Send Email to Rahul' },
+                        { id: 2, note: 'Submit Project' },
+                        { id: 3, note: 'Make prototype' },
+                        { id: 4, note: 'Attend the meeting' }
                     ]
                 }
             }
+
+            update = (newText, id) => {
+                let notes = this.state.notes.map(
+                    note => (note.id != id)?
+                    note: {
+                        ...note,
+                        note: newText
+                    }
+                )
+                this.setState({notes})
+            }
+
+            remove = (id) => {
+                let notes = this.state.notes.filter(note => note.id !== id)
+                this.setState({note})
+            }
+
+            eachNote = (note) => {
+                return <Note onChange={this.update} onRemove={this.remove} id={note.id} key={note.id}>{note.note}</Note>
+
+            }
+
             render() {
                 return (
                     <div className="board">
                         {
-                            this.state.notes.map((note, i) => {
-                                return <Note key={i}>{note}</Note>
-                            })
+                            this.state.notes.map(note => {this.eachNote})
                         }
                     </div>
                 );
             }
         }
 
-        ReactDOM.render(<Board count={10} />, document.getElementById('root'))
+        ReactDOM.render(<Board />, document.getElementById('root'))
     </script>
 
     <!-- <script type="text/javascript">
