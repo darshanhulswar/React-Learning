@@ -29,12 +29,10 @@
 
 <body>
 
-    <div class="container py-5" id="root">
-
-    </div>
-
+    <div class="container py-5" id="root"></div>
 
     <script type="text/babel">
+
         class Note extends React.Component {
 
             constructor(props) {
@@ -49,12 +47,11 @@
             }
 
             save = () => {
-                this.props.onChange(this.refs.newText.value, this.props.id);
-                this.setState({editing: false})
+                this.setState({ editing: false })
             }
 
             delete = () => {
-                this.props.onRemove(this.props.id)
+                alert('Deleting......')
             }
 
             renderForm = () => {
@@ -62,7 +59,6 @@
                     <div className="card shadow p-4 text-center d-inline-block w-50" style={{ backgroundColor: "#445175" }}>
                         <div className="card-body">
                             <textarea ref="newText" className="form-control font-weight-bolder text-primary" name="note" id="note" cols="30" rows="10">{this.props.children}</textarea>
-
                             <button data-toggle="tooltip" data-placement="bottom" title="Save Note" onClick={this.save} className="btn btn-success m-2" title="Save Note"><i className="fa fa-save"></i> Save</button>
                         </div>
                     </div>
@@ -74,8 +70,8 @@
                     <div className="card shadow p-4 text-center d-inline-block w-50 m-2" style={{ backgroundColor: "#445175" }}>
                         <div className="card-body">
                             <h1 style={{ color: "#DFDFEF" }}>{this.props.children}</h1>
-                            <button data-toggle="tooltip" data-placement="left" title="Edit Note" onClick={this.edit} className="btn btn-sm btn-primary mx-2 rounded-circle" title="Edit Note"><i className="fa fa-edit"></i></button>
-                            <button data-toggle="tooltip" data-placement="right" title="Delete Note" onClick={this.delete} className="btn btn-sm btn-success mx-2 rounded-circle" title="Delete Note"><i className="fa fa-trash"></i></button>
+                            <button title="Edit Note" onClick={this.edit} className="btn btn-sm btn-primary mx-2 rounded-circle" title="Edit Note"><i className="fa fa-edit"></i></button>
+                            <button title="Delete Note" onClick={this.delete} className="btn btn-sm btn-success mx-2 rounded-circle" title="Delete Note"><i className="fa fa-save"></i></button>
                         </div>
                     </div>
                 );
@@ -92,53 +88,6 @@
 
         const rootElement = document.getElementById('root');
         ReactDOM.render(<Note />, rootElement);
-
-        class Board extends React.Component {
-            constructor(props) {
-                super(props);
-                this.state = {
-                    notes: [
-                        { id: 1, note: 'Send Email to Rahul' },
-                        { id: 2, note: 'Submit Project' },
-                        { id: 3, note: 'Make prototype' },
-                        { id: 4, note: 'Attend the meeting' }
-                    ]
-                }
-            }
-
-            update = (newText, id) => {
-                let notes = this.state.notes.map(
-                    note => (note.id != id)?
-                    note: {
-                        ...note,
-                        note: newText
-                    }
-                )
-                this.setState({notes})
-            }
-
-            remove = (id) => {
-                let notes = this.state.notes.filter(note => note.id !== id)
-                this.setState({note})
-            }
-
-            eachNote = (note) => {
-                return <Note onChange={this.update} onRemove={this.remove} id={note.id} key={note.id}>{note.note}</Note>
-
-            }
-
-            render() {
-                return (
-                    <div className="board">
-                        {
-                            this.state.notes.map(note => {this.eachNote})
-                        }
-                    </div>
-                );
-            }
-        }
-
-        ReactDOM.render(<Board />, document.getElementById('root'))
     </script>
 
     <!-- <script type="text/javascript">
