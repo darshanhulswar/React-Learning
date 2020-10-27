@@ -89,7 +89,20 @@
         }
 
         const rootElement = document.getElementById('root');
-        ReactDOM.render(<Note />, rootElement);
+        ReactDOM.render(<Note>Hello World</Note>, rootElement);
+
+        class Board extends React.Component {
+            render() {
+                return (
+                    <div className="Board">
+                        Board
+                        {this.props.count}
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Board count={10} />, rootElement)
     </script>
 
     <!-- <script type="text/javascript">
