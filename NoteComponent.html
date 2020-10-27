@@ -47,6 +47,8 @@
             }
 
             save = () => {
+                const val = this.refs.newText.value;
+                alert('The text you have entered ' + val)
                 this.setState({ editing: false })
             }
 
