@@ -92,11 +92,32 @@
         ReactDOM.render(<Note>Hello World</Note>, rootElement);
 
         class Board extends React.Component {
+
+            constructor(props) {
+                super(props);
+                this.state = {
+                    notes: [
+                        'Call Rahul',
+                        'Email John',
+                        'Meetingg with Boss',
+                        'Submit project'
+                    ]
+                }
+            }
+
             render() {
+                const boardStyle = {
+                    backgroundColor: '#bfd8d8',
+                    left: '0px',
+                    right: '0px',
+                    top: '0px',
+                    bottom: '0px'
+                }
                 return (
-                    <div className="Board">
-                        Board
-                        {this.props.count}
+                    <div style={boardStyle}>
+                        {this.state.notes.map((note, index) => {
+                            return <Note key={index}>{note}</Note>
+                        })}
                     </div>
                 )
             }
