@@ -47,20 +47,19 @@
             }
 
             save = () => {
-                const val = this.refs.newText.value;
-                alert('The text you have entered ' + val)
+                this.props.onChange(this.refs.newText.value, this.props.id)
                 this.setState({ editing: false })
             }
 
-            delete = () => {
-                alert('Deleting......')
+            delete = (id) => {
+                this.props.onRemove(this.props.id)
             }
 
             renderForm = () => {
                 return (
                     <div className="card shadow p-4 text-center d-inline-block w-50" style={{ backgroundColor: "#445175" }}>
                         <div className="card-body">
-                            <textarea ref="newText" className="form-control font-weight-bolder text-primary" name="note" id="note" cols="30" rows="10">{this.props.children}</textarea>
+                            <textarea ref="newText" className="form-control font-weight-bolder text-primary" name="note" id="note" cols="30" rows="10"></textarea>
                             <button data-toggle="tooltip" data-placement="bottom" title="Save Note" onClick={this.save} className="btn btn-success m-2" title="Save Note"><i className="fa fa-save"></i> Save</button>
                         </div>
                     </div>
@@ -73,7 +72,7 @@
                         <div className="card-body">
                             <h1 style={{ color: "#DFDFEF" }}>{this.props.children}</h1>
                             <button title="Edit Note" onClick={this.edit} className="btn btn-sm btn-primary mx-2 rounded-circle" title="Edit Note"><i className="fa fa-edit"></i></button>
-                            <button title="Delete Note" onClick={this.delete} className="btn btn-sm btn-success mx-2 rounded-circle" title="Delete Note"><i className="fa fa-save"></i></button>
+                            <button title="Delete Note" onClick={this.delete} className="btn btn-sm btn-success mx-2 rounded-circle" title="Delete Note"><i className="fa fa-trash"></i></button>
                         </div>
                     </div>
                 );
@@ -97,12 +96,36 @@
                 super(props);
                 this.state = {
                     notes: [
-                        'Call Rahul',
-                        'Email John',
-                        'Meetingg with Boss',
-                        'Submit project'
+                        { id: 1, note: 'Call Rahul' },
+                        { id: 2, note: 'Email John' },
+                        { id: 3, note: 'Meetingg with Boss' },
+                        { id: 4, note: 'Submit project' }
                     ]
                 }
+            }
+
+            update = (newText, id) => {
+                let notes = this.state.notes.map(
+                    note => (note.id !== id) ?
+                        note : {
+                            ...note,
+                            note: newText
+                        }
+                )
+                this.setState({ notes })
+            }
+
+            remove = id => {
+                let notes = this.state.notes.filter(note => note.id !== id)
+                this.setState({ notes })
+            }
+
+            eachNote = note => {
+                return <Note
+                    id={note.id}
+                    key={note.id}
+                    onChange={this.update}
+                    onRemove={this.remove}>{note.note}</Note>
             }
 
             render() {
@@ -115,9 +138,9 @@
                 }
                 return (
                     <div style={boardStyle}>
-                        {this.state.notes.map((note, index) => {
-                            return <Note key={index}>{note}</Note>
-                        })}
+                        {
+                            this.state.notes.map(this.eachNote)
+                        }
                     </div>
                 )
             }
