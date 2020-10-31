@@ -150,8 +150,19 @@
                     padding: '9px',
                     boxShadow: '0 0 10px #000'
                 }
+
+                let emptyNotesAlert = '';
+                if (this.state.notes.length <= 0) {
+                    emptyNotesAlert = (
+                        <div className="alert alert-warning">
+                            <p className="lead">You don't have any note in your list. Click on + button to add.</p>
+                        </div>
+                    )
+                }
+
                 return (
                     <div style={boardStyle}>
+                        {emptyNotesAlert}
                         {
                             this.state.notes.map(this.eachNote)
                         }
