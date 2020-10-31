@@ -59,7 +59,7 @@
                 return (
                     <div className="card shadow p-4 text-center d-inline-block w-50" style={{ backgroundColor: "#445175" }}>
                         <div className="card-body">
-                            <textarea ref="newText" className="form-control font-weight-bolder text-primary" name="note" id="note" cols="30" rows="10"></textarea>
+                            <textarea ref="newText" autoFocus className="form-control font-weight-bolder text-primary" name="note" id="note" cols="30" rows="10"></textarea>
                             <button data-toggle="tooltip" data-placement="bottom" title="Save Note" onClick={this.save} className="btn btn-success m-2" title="Save Note"><i className="fa fa-save"></i> Save</button>
                         </div>
                     </div>
@@ -95,12 +95,7 @@
             constructor(props) {
                 super(props);
                 this.state = {
-                    notes: [
-                        { id: 1, note: 'Call Rahul' },
-                        { id: 2, note: 'Email John' },
-                        { id: 3, note: 'Meetingg with Boss' },
-                        { id: 4, note: 'Submit project' }
-                    ]
+                    notes: []
                 }
             }
 
@@ -128,19 +123,39 @@
                     onRemove={this.remove}>{note.note}</Note>
             }
 
+            nextID = () => {
+                this.uniqId = this.uniqId || 0;
+                return this.uniqId++;
+            }
+
+            add = text => {
+                let notes = [
+                    ...this.state.notes,
+                    {
+                        id: this.nextID(),
+                        note: text
+                    }
+                ]
+                this.setState({ notes })
+            }
+
             render() {
                 const boardStyle = {
                     backgroundColor: '#bfd8d8',
                     left: '0px',
                     right: '0px',
                     top: '0px',
-                    bottom: '0px'
+                    bottom: '0px',
+                    borderRadius: '3px',
+                    padding: '9px',
+                    boxShadow: '0 0 10px #000'
                 }
                 return (
                     <div style={boardStyle}>
                         {
                             this.state.notes.map(this.eachNote)
                         }
+                        <button onClick={() => this.add()} className="btn btn-warning rounded-circle shadow text-light m-2"><i className="fa fa-plus"></i></button>
                     </div>
                 )
             }
