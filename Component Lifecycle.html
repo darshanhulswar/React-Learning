@@ -20,22 +20,38 @@
     <script type="text/babel">
         class Box extends React.Component {
 
+            constructor(props) {
+                super(props)
+
+                this.state = {
+                    margin: '2rem',
+                    width: '300px',
+                    height: '300px',
+                    backgroundColor: 'red'
+                }
+            }
+
+            updateBackgroundHandler = () => {
+                console.log('clicked..');
+                this.setState({ backgroundColor: 'yellow' })
+            }
+
             // componentWillMount() {
             //     alert('Component will mount...')
             // }
 
-            myStyles() {
-                return {
-                    margin: '2rem',
-                    width: '300px',
-                    height: '300px',
-                    backgroundColor: 'rgb(14, 173, 221)'
-                }
-            }
+            // myStyles() {
+            //     return {
+            //         margin: '2rem',
+            //         width: '300px',
+            //         height: '300px',
+            //         backgroundColor: 'rgb(14, 173, 221)'
+            //     }
+            // }
 
             render() {
                 return (
-                    <div id="box" style={this.myStyles()}>
+                    <div onClick={this.updateBackgroundHandler} id="box" style={this.state}>
                     </div>
                 )
             }
@@ -44,6 +60,7 @@
             //     alert('Component Did Mount')
             // }
         }
+
 
         ReactDOM.render(<Box />, document.getElementById('react-container'))
 
